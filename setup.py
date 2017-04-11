@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='oz-cli',
-      version='0.1',
+      version='0.2',
       description='Swiftly execute complex commands in the shell',
       url='https://github.com/shaneleonard/oz',
       author='Shane Leonard',
