@@ -3,6 +3,7 @@
 """Console script for oz_cli."""
 import sys
 import os
+from itertools import combinations
 import click
 import yaml
 import whoosh
@@ -111,12 +112,22 @@ def spell_dependencies(spell):
     parsed = JINJA_ENV.parse(spell)
     return meta.find_undeclared_variables(parsed)
 
-def resolve_spell_dependency(spell_symbol, spellbook, context_hints):
+def resolve_spell_dependency(spell_symbol, context_hints):
     """
     Find the spell name in the spellbook which most likely corresponds to the
     spell symbol (eg a template variable from a parent spell).
     """
-    pass
+    qparser = whoosh.qparser.QueryParser('spell_name', SEARCH_IDX.schema)
+    with SEARCH_IDX.searcher() as searcher:
+        for n_query_terms in range(len(context_hints), 0, -1):
+            for context in combinations(context_hints, n_query_terms):
+                query_terms = ' '.join(list(context) + [spell_symbol])
+                query = qparser.parse(query_terms)
+                results = searcher.search(query)
+                if len(results) > 0:
+                    print(query_terms)
+                    print(len(results))
+                    print(results[0])
 
 def search_spellbook_index(query_terms):
     qparser = whoosh.qparser.QueryParser('spell_name', SEARCH_IDX.schema)
@@ -139,6 +150,8 @@ def main(args=None):
     index_spellbook(spellbook)
 
     search_spellbook_index(' '.join(args))
+    resolve_spell_dependency('branch', args)
+
 
 
 if __name__ == "__main__":
