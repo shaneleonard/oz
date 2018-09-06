@@ -3,6 +3,4 @@ python:
 - '2.7'
 - '3.6'
 
-install: pip install -e .
-
-script: tox
+script: python setup.py test

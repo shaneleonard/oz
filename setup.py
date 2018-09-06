@@ -15,7 +15,7 @@ requirements = ['Click>=6.0']
 
 setup_requirements = [ ]
 
-test_requirements = [ ]
+test_requirements = ['tox', 'pytest']
 
 setup(
     author="Shane William Leonard",
@@ -47,7 +47,7 @@ setup(
     name='oz_cli',
     packages=find_packages(include=['oz']),
     setup_requires=setup_requirements,
-    test_suite='tests',
+    test_suite='tox',
     tests_require=test_requirements,
     url='https://github.com/shaneleonard/oz',
     version='0.3.0',
