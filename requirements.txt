@@ -45,7 +45,7 @@ pytest-cache==1.0
 pytest-cov==2.6.0
 pytest-pep8==1.0.6
 pytz==2018.5
-PyYAML==3.13
+PyYAML==5.4
 requests==2.19.1
 requests-toolbelt==0.8.0
 simplegeneric==0.8.1
